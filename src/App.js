@@ -14,7 +14,9 @@ class App extends React.Component {
     temperature: undefined,
     city: undefined,
     country: undefined,
+    zipcode: undefined,
     humidity: undefined,
+    pressure: undefined,
     description: undefined,
     error: undefined
   }
@@ -39,6 +41,7 @@ class App extends React.Component {
         city: response.name,
         country: response.sys.country,
         humidity: response.main.humidity,
+        pressure: response.main.pressure,
         description: response.weather[0].description,
         error: ""
       })
@@ -48,6 +51,33 @@ class App extends React.Component {
       })
     }
   }
+/*
+  getWeatherZip = async (e) => {
+    // Store zip code and country code based on current value in form
+    const zipcode = e.target.elements.city.value;
+    const country = e.target.elements.country.value;
+    e.preventDefault();   
+    // fetch keyword for API call, await to show it's asynchronous, 
+    // URL defined at https://openweathermap.org/current
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=imperial&appid=${Api_Key}`);
+    // response stored as json in `response` variable
+    const response = await api_call.json();
+    console.log(response);
+    if(city && country){
+      this.setState({
+        temperature: response.main.temp,
+        city: response.name,
+        country: response.sys.country,
+        humidity: response.main.humidity,
+        description: response.weather[0].description,
+        error: ""
+      })
+    }else{
+      this.setState({
+        error: "Please input search values..."
+      })
+    }
+  }*/
 
   // Render function updates view whenever the state changes
   // Components that were imported (Titles, Weather, Form) are called below as HTML tags, 
@@ -75,6 +105,7 @@ class App extends React.Component {
                     country={this.state.country}
                     humidity={this.state.humidity}
                     description={this.state.description}
+                    pressure={this.state.pressure}
                     error={this.state.error}
                   />
                 </div>
